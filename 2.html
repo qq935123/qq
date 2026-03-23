@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>🍄果實價值計算器</title>
+
+<style>
+body{
+  font-family: Arial;
+  text-align:center;
+  background:#eef7f0;
+}
+
+.box{
+  background:white;
+  padding:20px;
+  margin:20px auto;
+  width:340px;
+  border-radius:15px;
+  box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+input,select{
+  margin:5px;
+  padding:5px;
+  width:80%;
+}
+
+button{
+  margin:5px;
+  padding:8px;
+  border-radius:10px;
+  border:none;
+  font-size:14px;
+}
+
+.gray{background:#bbb;}
+.green{background:#6ccf5f;color:white;}
+.selected{
+  box-shadow:0 0 10px gold;
+  transform:scale(1.1);
+}
+
+#result{
+  margin-top:20px;
+  font-size:24px;
+  color:#d35400;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+<h2>🍄果實價值計算器</h2>
+
+果實種類<br>
+<select id="fruit">
+  <option value="50000">驚奇菇</option>
+  <option value="24850">大王菊</option>
+  <option value="24850">葡萄</option>
+  <option value="9028">蟠桃</option>
+  <option value="4618.8">松果</option>
+  <option value="369.82">向日葵</option>
+  <option value="11475.435">草莓連體</option>
+  <option value="7650.29">草莓</option>
+  <option value="2151.65">奇異狗</option>
+  <option value="202.48">榴槤</option>
+  <option value="790.17">荔枝</option>
+  <option value="4969.02">香蕉-香蕉猴</option>
+  <option value="2484.51">香蕉</option>
+  <option value="527">石榴</option>
+  <option value="283.08">蘋果-糖葫蘆</option>
+  <option value="188.72">蘋果</option>
+  <option value="145">椰子</option>
+  <option value="25.92">南瓜-萬聖夜</option>
+  <option value="12.96">南瓜</option>
+  <option value="103.52">玉米</option>
+  <option value="2300">牽牛花</option>
+  <option value="486.86">梨</option>
+  <option value="16.065">西瓜-方形</option>
+  <option value="10.71">西瓜</option>
+  <option value="279.72">白菜</option>
+  <option value="12.24">竹子</option>
+  <option value="430.32">黃瓜-黃瓜蛇</option>
+  <option value="215.16">黃瓜</option>
+  <option value="43.54">波斯菊</option>
+  <option value="688.53">香菇</option>
+  <option value="285">大豆</option>
+  <option value="39.42">馬鈴薯-洋芋片</option>
+  <option value="26.28">馬鈴薯</option>
+</select><br>
+
+重量<br>
+<input id="weight"><br>
+
+品質<br>
+<select id="quality">
+  <option value="1">普通</option>
+  <option value="3">銀</option>
+  <option value="10">金</option>
+  <option value="20">水晶</option>
+  <option value="30">流光</option>
+</select>
+
+<h3>🌦️ 天氣詞條</h3>
+<div id="weatherButtons"></div>
+
+<p>已選：<span id="selectedList"></span></p>
+
+<button onclick="calc()">計算</button>
+
+<div id="result"></div>
+</div>
+
+<script>
+
+let selected = [];
+
+// 數值
+let values = {
+  "潮濕":1,"顫慄":1,
+  "覆雪":2,"迷霧":2,"生機":2,"結霜":2,"灼熱":2,"沙塵":2,
+  "落雷":3,
+  "冰凍":4,"陶化":4,
+
+  "彩虹":5,"螢光":5,"幽魂":5,"驚魂夜":5,"血月":5,
+
+  "星環":10,"亮晶晶":10,"瓷化":8,
+
+  "霓虹":18
+};
+
+// 分類
+let grayList = ["潮濕","顫慄","覆雪","迷霧","生機","結霜","灼熱","沙塵"];
+let greenList = ["落雷","冰凍","陶化"];
+let blueList = ["彩虹","螢光","幽魂","驚魂夜","血月"];
+let purpleList = ["星環","亮晶晶","瓷化"];
+let rainbowList = ["霓虹"];
+
+// 建立按鈕
+let container = document.getElementById("weatherButtons");
+
+Object.keys(values).forEach(name=>{
+  let btn = document.createElement("button");
+  btn.innerText = name;
+
+  if(grayList.includes(name)){
+    btn.classList.add("gray");
+  }else if(greenList.includes(name)){
+    btn.classList.add("green");
+  }else if(blueList.includes(name)){
+    btn.style.background="#4da6ff";
+    btn.style.color="white";
+  }else if(purpleList.includes(name)){
+    btn.style.background="#a64dff";
+    btn.style.color="white";
+  }else if(rainbowList.includes(name)){
+    btn.style.background="linear-gradient(45deg, red, orange, yellow, green, blue, purple)";
+    btn.style.color="white";
+  }
+
+  btn.onclick = function(){
+
+    if(selected.includes(name)){
+      selected = selected.filter(e=>e!==name);
+      btn.classList.remove("selected");
+    }else{
+      selected.push(name);
+      btn.classList.add("selected");
+    }
+
+    updateList();
+  }
+
+  container.appendChild(btn);
+});
+
+function updateList(){
+  document.getElementById("selectedList").innerText = selected.join(",");
+}
+
+function getWeather(){
+
+  let list = [...selected];
+
+  // 冰凍 → 不算結霜
+  if(list.includes("冰凍")){
+    list = list.filter(e=>e!=="結霜");
+  }
+
+  // 瓷化 → 不算陶化 + 灼熱
+  if(list.includes("瓷化")){
+    list = list.filter(e=>e!=="陶化" && e!=="灼熱");
+  }
+
+  let sum = 0;
+  list.forEach(e=>{
+    sum += values[e];
+  });
+
+  return 1 + sum;
+}
+
+function calc(){
+
+  let base = Number(document.getElementById("fruit").value);
+  let weight = Number(document.getElementById("weight").value);
+  let quality = Number(document.getElementById("quality").value);
+
+  let weather = getWeather();
+
+  let total = base * (weight ** 1.5) * quality * weather;
+
+  let display = Math.floor(total / 1000000);
+
+  document.getElementById("result").innerText =
+    "🍄 最終價值：" + display + "m ｜ 🌦️倍率：" + weather;
+
+}
+
+</script>
+
+<div id="author">作者: 緣風</div>
+</body>
+</html>
