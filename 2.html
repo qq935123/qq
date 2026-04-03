@@ -16,13 +16,50 @@ body{
 
 .box{
   background:#B0E0E6;
-  padding:20px;
+  padding:15px;
   margin:20px auto;
   width:90%;
   max-width:400px;
   border-radius:15px;
   box-shadow:0 0 10px rgba(0,0,0,0.2);
 }
+
+    .flex-container {
+      display: flex;
+      justify-content: flex-start; /* 可以調整對齊方式，這裡是從左邊開始排列 */
+      align-items: center; /* 垂直居中對齊 */
+      gap: 10px; /* 設置項目間距 */
+      margin-bottom: 10px;
+    }
+
+    .flex-container h3 {
+      margin: 0;
+    }
+
+    /* 調整 select 和 input 的寬度 */
+    select, input {
+      padding: 5px;
+      font-size: 20px;
+      width: 20px; 
+      margin: 0;
+    }
+
+    /* 調整「重量」和「輸入重量」在同一行顯示 */
+    .weight-container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* 設定標題 h2 的間距 */
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      margin: 10px 0;
+    }
 
 button{
   margin:5px;
@@ -59,55 +96,60 @@ input, select{
 <body>
 
 <div class="box">
-<h2>🍄果實價值計算器</h2>
+<h2>🍄果實價值計算器🍄</h2>
 
-<h3>果實種類</h3>
-<select id="fruitSelect">
-  <option value="0">-</option>
-  <option value="10148">仙人掌象</option>
-  <option value="50000">驚奇菇</option>
-  <option value="33000">魔鬼朝天椒</option>
-  <option value="24850">大王菊</option>
-  <option value="24850">葡萄</option>
-  <option value="5254.1">蟠桃</option>
-  <option value="4618.8">松果</option>
-  <option value="369.82">向日葵</option>
-  <option value="3698.2">向日葵-笑日葵</option>
-  <option value="11475.435">草莓-連體</option>
-  <option value="7650.29">草莓</option>
-  <option value="2151.65">奇異狗</option>
-  <option value="202.48">榴槤</option>
-  <option value="790.17">荔枝</option>
-  <option value="1645">櫻桃</option>
-  <option value="4969.02">香蕉-香蕉猴</option>
-  <option value="2484.51">香蕉</option>
-  <option value="527">石榴</option>
-  <option value="283.08">蘋果-糖葫蘆</option>
-  <option value="188.72">蘋果</option>
-  <option value="145">椰子</option>
-  <option value="25.92">南瓜-萬聖夜</option>
-  <option value="12.96">南瓜</option>
-  <option value="2550">棉花</option>
-  <option value="103.52">玉米</option>
-  <option value="2300">牽牛花</option>
-  <option value="539.35">橘子</option>
-  <option value="486.86">梨</option>
-  <option value="16.065">西瓜-方形</option>
-  <option value="10.71">西瓜</option>
-  <option value="279.72">白菜</option>
-  <option value="12.24">竹子</option>
-  <option value="430.32">黃瓜-黃瓜蛇</option>
-  <option value="215.16">黃瓜</option>
-  <option value="285">大豆</option>
-  <option value="43.54">波斯菊</option>
-  <option value="688.53">香菇</option>
-  <option value="65.16">番茄</option>
-  <option value="39.42">馬鈴薯-洋芋片</option>
-  <option value="26.28">馬鈴薯</option>
-</select>
+  <div class="flex-container">
+    <h3>果實種類</h3>
+    <select id="fruitSelect">
+      <option value="0">-</option>
+      <option value="10148">仙人掌象</option>
+      <option value="50000">驚奇菇</option>
+      <option value="33000">魔鬼朝天椒</option>
+      <option value="24850">大王菊</option>
+      <option value="24850">葡萄</option>
+      <option value="5254.1">蟠桃</option>
+      <option value="4618.8">松果</option>
+      <option value="369.82">向日葵</option>
+      <option value="3698.2">向日葵-笑日葵</option>
+      <option value="11475.435">草莓-連體</option>
+      <option value="7650.29">草莓</option>
+      <option value="2151.65">奇異狗</option>
+      <option value="202.48">榴槤</option>
+      <option value="790.17">荔枝</option>
+      <option value="1645">櫻桃</option>
+      <option value="4969.02">香蕉-香蕉猴</option>
+      <option value="2484.51">香蕉</option>
+      <option value="527">石榴</option>
+      <option value="283.08">蘋果-糖葫蘆</option>
+      <option value="188.72">蘋果</option>
+      <option value="145">椰子</option>
+      <option value="25.92">南瓜-萬聖夜</option>
+      <option value="12.96">南瓜</option>
+      <option value="2550">棉花</option>
+      <option value="103.52">玉米</option>
+      <option value="2300">牽牛花</option>
+      <option value="539.35">橘子</option>
+      <option value="486.86">梨</option>
+      <option value="16.065">西瓜-方形</option>
+      <option value="10.71">西瓜</option>
+      <option value="279.72">白菜</option>
+      <option value="12.24">竹子</option>
+      <option value="430.32">黃瓜-黃瓜蛇</option>
+      <option value="215.16">黃瓜</option>
+      <option value="285">大豆</option>
+      <option value="43.54">波斯菊</option>
+      <option value="688.53">香菇</option>
+      <option value="65.16">番茄</option>
+      <option value="39.42">馬鈴薯-洋芋片</option>
+      <option value="26.28">馬鈴薯</option>
+    </select>
+  </div>
 
-<h3>重量</h3>
-<input type="number" id="weight" placeholder="輸入重量" min="0">
+  <div class="weight-container">
+    <h3>重量</h3>
+    <input type="number" id="weight" placeholder="輸入重量" min="0">
+  </div>
+
 <p>
 🍄 最大重量：<span id="maxWeightText">-</span>
 ｜ 📊 百分比：<span id="weightPercent">-</span>
